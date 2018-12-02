@@ -38,7 +38,7 @@ func getRightBoxesId(data []string) string {
 		}
 	}
 
-	panic("No right boxed found")
+	panic("No right boxes found")
 }
 
 func getCommonLetters(id1 []rune, id2 []rune) []rune {
