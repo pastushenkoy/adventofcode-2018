@@ -10,7 +10,7 @@ func main() {
 
 	fmt.Println(fmt.Sprintf("The checksum is %v", getChecksum(data)))
 
-	fmt.Println(fmt.Sprintf("The common letters of right boxed ids are '%v'", getRightBoxesId(data)));
+	fmt.Println(fmt.Sprintf("The common letters of right boxes ids are '%v'", getRightBoxesId(data)));
 }
 
 func getRightBoxesId(data []string) string {
