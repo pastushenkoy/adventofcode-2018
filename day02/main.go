@@ -13,20 +13,32 @@ func main() {
 	fmt.Println(fmt.Sprintf("The common letters of right boxes ids are '%v'", getRightBoxesId(data)));
 }
 
+type distanceResult struct {
+	id1 []rune
+	id2 []rune
+	distance int8
+}
+
 func getRightBoxesId(data []string) string {
 	runesData := make([][]rune, len(data))
 	for i, id := range data {
 		runesData[i] = []rune(id)
 	}
-	var commonLetters []rune
+
+	c := make(chan distanceResult)
 	for i := 0; i < len(runesData); i++ {
 		for j := i + 1; j < len(runesData); j++ {
-			if getDistance(runesData[i], runesData[j]) == 1 {
-				commonLetters = getCommonLetters(runesData[i], runesData[j])
-			}
+			go calculateDistance(runesData[i], runesData[j], c)
 		}
 	}
-	return string(commonLetters)
+
+	for distance := range c{
+		if distance.distance == 1{
+			return string(getCommonLetters(distance.id1, distance.id2))
+		}
+	}
+
+	panic("No right boxed found")
 }
 
 func getCommonLetters(id1 []rune, id2 []rune) []rune {
@@ -41,14 +53,19 @@ func getCommonLetters(id1 []rune, id2 []rune) []rune {
 	return commonLetters
 }
 
-func getDistance(id1 []rune, id2 []rune) int8 {
+func calculateDistance(id1 []rune, id2 []rune, c chan distanceResult) {
 	var distance int8 = 0
 	for i := 0; i < len(id1); i++ {
 		if id1[i] != id2[i] {
 			distance++
 		}
 	}
-	return distance
+
+	c <- distanceResult{
+		id1:id1,
+		id2:id2,
+		distance:distance,
+	}
 }
 
 func getChecksum(data []string) int {
