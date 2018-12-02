@@ -9,13 +9,9 @@ import (
 func main() {
 	freq := loadFrequencies()
 
-	sum := getResultFrequency(freq)
+	fmt.Println(fmt.Sprintf("The result frequency is %v", getResultFrequency(freq)))
 
-	fmt.Println(fmt.Sprintf("The result frequency is %v", sum))
-
-	currentFreq := getFirstDuplicatedFrequency(freq)
-
-	fmt.Println(fmt.Sprintf("The first duplicated frequency is %v", currentFreq))
+	fmt.Println(fmt.Sprintf("The first duplicated frequency is %v", getFirstDuplicatedFrequency(freq)))
 }
 
 func getFirstDuplicatedFrequency(freq []int) int {
