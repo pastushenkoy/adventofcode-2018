@@ -2,52 +2,53 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
+	"github.com/pastushenkoy/adventOfCode/utils"
 	"strconv"
-	"strings"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
-func readFile(input string) []string {
-	inputFile, err := filepath.Abs(input);
-	check(err)
-	dat, err := ioutil.ReadFile(inputFile)
-	check(err)
-	return strings.Split(string(dat), "\r\n")
-}
-
 func main() {
-	data :=readFile("input.txt")
-	var freq []int
-	sum := 0
-	for _, st := range data{
-		num, _ := strconv.Atoi(st)
-		freq = append(freq, num)
-		sum += num
-	}
-	fmt.Println(sum)
+	freq := loadFrequencies()
 
-	hashset := make(map[int]struct{})
+	sum := getResultFrequency(freq)
 
+	fmt.Println(fmt.Sprintf("The result frequency is %v", sum))
+
+	currentFreq := getFirstDuplicatedFrequency(freq)
+
+	fmt.Println(fmt.Sprintf("The first duplicated frequency is %v", currentFreq))
+}
+
+func getFirstDuplicatedFrequency(freq []int) int {
+	hashSet := make(map[int]struct{})
 	currentFreq := 0
-	hashset[currentFreq] = struct{}{}
-	i:=0
+	hashSet[currentFreq] = struct{}{}
+	i := 0
 	for {
 		currentFreq += freq[i%len(freq)]
-		if _, hasValue := hashset[currentFreq]; hasValue{
+		if _, hasValue := hashSet[currentFreq]; hasValue {
 			break;
 		}
 
-		hashset[currentFreq] = struct{}{}
+		hashSet[currentFreq] = struct{}{}
 		i++
 	}
+	return currentFreq
+}
 
-	fmt.Println(currentFreq)
-	fmt.Print(i)
+func getResultFrequency(freq []int) int {
+	sum := 0
+	for _, num := range freq {
+		sum += num
+	}
+	return sum
+}
+
+func loadFrequencies() []int {
+	data := utils.ReadFileOfStrings("input.txt")
+	var freq []int
+	for _, st := range data {
+		num, _ := strconv.Atoi(st)
+		freq = append(freq, num)
+	}
+	return freq
 }
