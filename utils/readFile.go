@@ -19,3 +19,7 @@ func ReadFileOfStrings(input string) []string {
 	check(err)
 	return strings.Split(string(dat), "\r\n")
 }
+
+func ReadStringFromFile(input string) string{
+	return ReadFileOfStrings(input)[0]
+}
