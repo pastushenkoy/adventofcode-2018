@@ -83,7 +83,7 @@ func getWorkTime(conditions []*StepCondition, workerCount int, workingTimeModifi
 
 
 		//fmt.Printf("%v\t%s\t%s\t%s\n", i, workers[0].currentStep, workers[1].currentStep, doneSteps)
-		fmt.Printf("%v\t%s\t%s\t%s\t%s\t%s\t%s\n", i, workers[0].currentStep, workers[1].currentStep, workers[2].currentStep, workers[3].currentStep, workers[4].currentStep, doneSteps)
+		//fmt.Printf("%v\t%s\t%s\t%s\t%s\t%s\t%s\n", i, workers[0].currentStep, workers[1].currentStep, workers[2].currentStep, workers[3].currentStep, workers[4].currentStep, doneSteps)
 
 		doneSteps += doneInIteration
 
