@@ -27,5 +27,3 @@ func TestTask2(t *testing.T) {
 	}
 
 }
-
-
